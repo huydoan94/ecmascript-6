@@ -8,7 +8,8 @@
     "serve": "./node_modules/.bin/webpack-dev-server --inline --hot",
     "lint": "./node_modules/.bin/eslint ./src/**/*.js",
     "test": "./node_modules/.bin/mocha --compilers js:babel-core/register",
-    "test-watch": "./node_modules/.bin/mocha --compilers js:babel-core/register --watch"
+    "test-watch": "./node_modules/.bin/mocha --compilers js:babel-core/register --watch",
+    "test-cover": "./node_modules/.bin/babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha"
   },
   "keywords": [
     "ES6"
@@ -33,6 +34,8 @@
     "eslint-plugin-standard": "^2.0.1",
     "gulp": "^3.9.1",
     "gulp-util": "^3.0.7",
+    "isparta": "^4.0.0",
+    "istanbul": "0.4.4",
     "mocha": "^3.0.1",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
