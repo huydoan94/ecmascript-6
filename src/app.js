@@ -1,5 +1,5 @@
-import CourseGreeter  from './course-greeter';
+import CourseGreeter from './course-greeter'
 
-const greeter = new CourseGreeter('ES6 and Beyond');
+const greeter = new CourseGreeter('ES6 and Beyond')
 
-document.getElementById('greeting-msg').innerHTML = greeter.getGreetingMsg();
+document.getElementById('greeting-msg').innerHTML = greeter.getGreetingMsg()
