@@ -1,5 +1,7 @@
-import CourseGreeter from './course-greeter'
 
-const greeter = new CourseGreeter('ES6 and Beyond')
+import FileReader from './file_operation/file_reader'
 
-document.getElementById('greeting-msg').innerHTML = greeter.getGreetingMsg()
+let content = new FileReader()
+
+let contactsJSON = JSON.parse(content.readFile('data/contacts.json'))
+document.getElementById('content').innerHTML = contactsJSON[0].firstName + ' ' + contactsJSON[0].employeeId

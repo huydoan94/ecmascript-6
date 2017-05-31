@@ -6,7 +6,7 @@ body {
 
 .breadscrum-container {
     display: table;
-    min-height: 3em;
+    height: 5vh;
     width: 100%;
 }
 

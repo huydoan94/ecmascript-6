@@ -1,12 +1,21 @@
-var fs = require('fs')
+export default class FileReader {
+  readFile (filePath) {
+    console.log(filePath)
 
-function readFile () {
-  let content
+    let contents = ''
+    // eslint-disable-next-line
+    let rawFile = new XMLHttpRequest()
 
-  fs.readFile('file', 'utf8', function (err, data) {
-    if (err) throw err
-    content = data
-  })
-
-  return content
+    // eslint-disable-next-line
+    rawFile.open('GET', filePath, false)
+    rawFile.onreadystatechange = function () {
+      if (rawFile.readyState === 4) {
+        if (rawFile.status === 200 || rawFile.status === 0) {
+          contents = rawFile.responseText
+        }
+      }
+    }
+    rawFile.send(null)
+    return contents
+  }
 }
