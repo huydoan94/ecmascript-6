@@ -4,12 +4,6 @@
     padding: 0;
 }
 
-.org-tree {
-    width: 100vh;
-    height: 95vh;
-    overflow: auto;
-}
-
 .org-tree ul {
     padding-top: 20px;
     position: relative;
