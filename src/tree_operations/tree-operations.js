@@ -2,7 +2,7 @@ import Card from './../template/card';
 
 export default class Tree {
 
-    addAllElements (contacts) {
+    addManyElements (contacts) {
         contacts.forEach((contact) => {
             this.addElement(contact);
         });
@@ -11,13 +11,11 @@ export default class Tree {
     addElement (contact) {
         let element;
 
-        if (contact.hasOwnProperty('superiorId')) {
-            element = document.getElementById(contact.superiorId);
-        } else {
-            element = document.getElementById('tree');
-        }
+        contact.hasOwnProperty('superiorId') ? element = document.getElementById(contact.superiorId) : element = document.getElementById('tree');
 
-        if (typeof (element) !== 'undefined' && element != null) {
+        element.style.display === 'none' ? element.style.display = 'block' : undefined;
+
+        if (typeof (element) !== 'undefined' && element !== null) {
             let aCard = new Card(contact.id, contact.firstName + ' ' + contact.lastName, contact.department, contact.employeeId, contact.avatar);
 
             let li = element.appendChild(document.createElement('li'));
@@ -25,6 +23,7 @@ export default class Tree {
 
             let ul = li.appendChild(document.createElement('ul'));
             ul.setAttribute('id', contact.id);
+            ul.style.display = 'none';
         }
     }
 }

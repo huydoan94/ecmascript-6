@@ -5,20 +5,22 @@ body {
 }
 
 .breadscrum-container {
-    display: table;
+    display: block;
     height: 5vh;
     width: 100%;
 }
 
 .breadscrum {
-    display: table-cell;
+    display: block;
+    height: 100%;
+    width: 100%;
     vertical-align: middle;
     background-color: #f4f4f4;
 }
 
-.org-tree {
-    width: 100%;
+.tree-container {
     height: 95vh;
+    width: 100%;
     overflow: auto;
     padding: 0;
     margin: 0;

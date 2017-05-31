@@ -7,7 +7,6 @@
         <option name="RIGHT_MARGIN" value="224" />
         <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="true" />
         <JSCodeStyleSettings>
-          <option name="USE_SEMICOLON_AFTER_STATEMENT" value="false" />
           <option name="FORCE_SEMICOLON_STYLE" value="true" />
           <option name="USE_DOUBLE_QUOTES" value="false" />
           <option name="FORCE_QUOTE_STYlE" value="true" />

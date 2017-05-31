@@ -4,4 +4,4 @@ import Tree from './tree_operations/tree-operations';
 let contacts = (new FileReader()).readFile('data/contacts.json');
 
 let tree = new Tree();
-tree.addAllElements(contacts);
+tree.addManyElements(contacts);
