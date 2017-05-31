@@ -3,5 +3,9 @@ module.exports = {
   'plugins': [
     'standard',
     'promise'
-  ]
+  ],
+  'rules': {
+    'semi': [2, 'always'],
+    'indent': [2, 4]
+  }
 }

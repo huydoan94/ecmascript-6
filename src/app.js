@@ -1,5 +1,7 @@
-import CourseGreeter from './course-greeter'
+import FileReader from './file_operations/file-reader';
+import Tree from './tree_operations/tree-operations';
 
-const greeter = new CourseGreeter('ES6 and Beyond')
+let contacts = (new FileReader()).readFile('data/contacts.json');
 
-document.getElementById('greeting-msg').innerHTML = greeter.getGreetingMsg()
+let tree = new Tree();
+tree.addAllElements(contacts);
