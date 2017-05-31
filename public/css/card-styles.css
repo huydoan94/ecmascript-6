@@ -9,6 +9,7 @@
     border-radius: 5px;
     transition: all 0.5s;
     min-width: 20em;
+    text-align: left !important;
 }
 
 /* Apply the hover effect the the lineage of the element */

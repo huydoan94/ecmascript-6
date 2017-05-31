@@ -10,7 +10,7 @@ export default class Card {
 
     getCard () {
         return `
-                <div class="card" id="${this.cardID}">
+                <div class="card">
                     <div class="card__avatar">
                         <img class="card__avatar__img" src="images/${this.avatarPath}">
                     </div>
