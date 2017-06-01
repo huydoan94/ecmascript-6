@@ -59,7 +59,7 @@
 	var contacts = new _fileReader2.default().readFile('data/contacts.json');
 	
 	var tree = new _treeOperations2.default();
-	tree.addAllElements(contacts);
+	tree.addManyElements(contacts);
 
 /***/ }),
 /* 1 */
@@ -133,8 +133,8 @@
 	    }
 	
 	    _createClass(Tree, [{
-	        key: 'addAllElements',
-	        value: function addAllElements(contacts) {
+	        key: 'addManyElements',
+	        value: function addManyElements(contacts) {
 	            var _this = this;
 	
 	            contacts.forEach(function (contact) {
@@ -146,13 +146,11 @@
 	        value: function addElement(contact) {
 	            var element = void 0;
 	
-	            if (contact.hasOwnProperty('superiorId')) {
-	                element = document.getElementById(contact.superiorId);
-	            } else {
-	                element = document.getElementById('tree');
-	            }
+	            contact.hasOwnProperty('superiorId') ? element = document.getElementById(contact.superiorId) : element = document.getElementById('tree');
 	
-	            if (typeof element !== 'undefined' && element != null) {
+	            element.style.display === 'none' ? element.style.display = 'block' : undefined;
+	
+	            if (typeof element !== 'undefined' && element !== null) {
 	                var aCard = new _card2.default(contact.id, contact.firstName + ' ' + contact.lastName, contact.department, contact.employeeId, contact.avatar);
 	
 	                var li = element.appendChild(document.createElement('li'));
@@ -160,6 +158,7 @@
 	
 	                var ul = li.appendChild(document.createElement('ul'));
 	                ul.setAttribute('id', contact.id);
+	                ul.style.display = 'none';
 	            }
 	        }
 	    }]);

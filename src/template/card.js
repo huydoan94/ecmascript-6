@@ -1,27 +1,28 @@
 export default class Card {
 
-    constructor (cardID, fullName, departmentName, email, avatarPath) {
-        this.cardID = cardID;
-        this.fullName = fullName;
-        this.departmentName = departmentName;
-        this.email = email;
-        this.avatarPath = avatarPath;
+    constructor (contact) {
+        this.firstName = contact.firstName;
+        this.lastName = contact.lastName;
+        this.title = contact.title;
+        this.department = contact.department;
+        this.avatar = contact.avatar;
+        this.employeeId = contact.employeeId;
+        this.superiorId = contact.superiorId;
+        this.id = contact.id;
     }
 
     getCard () {
         return `
-                <div class="card">
-                    <div class="card__avatar">
-                        <img class="card__avatar__img" src="images/${this.avatarPath}">
-                    </div>
-                    <div class="card__detail">
-                        <h1 class="card__name">${this.fullName}</h1>
-                        <p class="card__department">${this.departmentName}</p>
-                        <a class="card__email" href="#">${this.email}</a>
-                        <p class="card__email-domain">@kms-technology.com</p>
-                    </div>
-                </div>
-        `;
+               <div class="card__avatar">
+                   <img class="card__avatar__img" src="images/${this.avatar}">
+               </div>
+               <div class="card__detail">
+                   <h1 class="card__name">${this.firstName + ' ' + this.lastName}</h1>
+                   <p class="card__department">${this.department}</p>
+                   <a class="card__email" href="#">${this.employeeId}</a>
+                   <p class="card__email-domain">@kms-technology.com</p>
+               </div>
+               `;
     }
 
     getCardID () {

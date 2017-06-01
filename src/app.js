@@ -1,7 +1,9 @@
-import FileReader from './file_operations/file-reader';
-import Tree from './tree_operations/tree-operations';
+/* eslint-disable no-undef */
 
-let contacts = (new FileReader()).readFile('data/contacts.json');
+import Tree from './tree_operations/tree-operations';
+import DataLoader from './data_operations/DataLoader';
+
+let contacts = (new DataLoader()).loadFromLocalStorage();
 
 let tree = new Tree();
 tree.addManyElements(contacts);
