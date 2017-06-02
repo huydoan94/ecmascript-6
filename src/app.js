@@ -1,9 +1,8 @@
 /* eslint-disable no-undef */
 
-import Tree from './tree_operations/tree-operations';
-import DataLoader from './data_operations/DataLoader';
+import Tree from './tree_operations/tree-handler';
+import DataLoader from './data_operations/data-loader';
 
-let contacts = (new DataLoader()).loadFromLocalStorage();
+let contacts = DataLoader.loadFromLocalStorage();
 
-let tree = new Tree();
-tree.addManyElements(contacts);
+Tree.addManyElements(contacts);

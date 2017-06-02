@@ -22,6 +22,12 @@ export default class Card {
                    <a class="card__email" href="#">${this.employeeId}</a>
                    <p class="card__email-domain">@kms-technology.com</p>
                </div>
+               <div class="card__action">
+                   <img id="card__edit" src="images/icon/edit-icon.png">
+                   <img id="card__add-right" src="images/icon/add-right-icon.png">
+                   <img id="card__add-bottom" src="images/icon/add-bottom-icon.png">
+                   <img id="card__delete" src="images/icon/delete-icon.png">
+               </div>
                `;
     }
 
