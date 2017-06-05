@@ -26,6 +26,10 @@
     vertical-align: middle;
 }
 
+.card__avatar input {
+    display: none;
+}
+
 .card__avatar__img {
     max-width: 100%;
     max-height: 6em;
@@ -45,20 +49,24 @@
 .card__name {
     font-size: 200%;
     color: rgb(23, 176, 230);
+    min-width: 5em;
 }
 
 .card__department {
     font-size: 125%;
     font-style: italic;
+    min-width: 5em;
 }
 
 .card__email {
     font-size: 125%;
     color: rgb(23, 176, 230);
+    width: 100%;
 }
 
 .card__email-domain {
     font-style: italic;
+
 }
 
 .card__expand__collapse {

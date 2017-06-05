@@ -5,15 +5,16 @@ import DataLoader from '../data_operations/data-loader';
 export default class Tree {
 
     static addManyElements (contacts) {
-        contacts.forEach((contact, index) => {
-            this.addElement(contact, index);
+        contacts.forEach((contact) => {
+            this.addElement(contact);
         });
     }
 
-    static addElement (contact, index = 0) {
-        let parentElement;
-        (!contact.hasOwnProperty('superiorId') || index === 0) ? parentElement = document.getElementById('tree')
-                                                               : parentElement = document.getElementById(contact.superiorId + '__tail');
+    static addElement (contact) {
+        let parentElement = document.getElementById(contact.superiorId + '__tail');
+        if (!contact.hasOwnProperty('superiorId') || typeof (parentElement) === 'undefined' || parentElement === null) {
+            parentElement = document.getElementById('tree');
+        }
 
         if (parentElement.style.display === 'none') {
             parentElement.style.display = 'block';
@@ -28,20 +29,28 @@ export default class Tree {
         let div = document.createElement('div');
         div.setAttribute('id', contact.id);
         div.setAttribute('class', 'card');
+        div.setAttribute('draggable', 'true');
         div.innerHTML = aCard.getCard();
+
+        let ul = document.createElement('ul');
+        ul.setAttribute('id', contact.id + '__tail');
+        ul.style.display = 'none';
 
         let icon = document.createElement('img');
         icon.setAttribute('id', contact.id + '__icon');
         icon.setAttribute('class', 'card__expand__collapse');
         icon.setAttribute('src', 'images/icon/plus-icon.png');
 
-        let ul = document.createElement('ul');
-        ul.setAttribute('id', contact.id + '__tail');
-        ul.style.display = 'none';
-
         EventHander.addListener(div, 'click', () => { EventHander.clickCard(contact.id, div); });
         EventHander.addListener(div, 'dblclick', () => { EventHander.clickCard(contact.id, div, true); });
+        EventHander.addListener(div, 'dragstart', (event) => { EventHander.dragCard(contact.id, div, event); });
+        EventHander.addListener(div, 'dragover', (event) => { EventHander.dragoverCard(contact.id, div, event); });
+        EventHander.addListener(div, 'drop', (event) => { EventHander.dropCard(contact.id, div, event); });
+
         EventHander.addListener(icon, 'click', () => { EventHander.triggerExpandCollapse(contact.id, icon); });
+
+        let avatarUploader = div.getElementsByTagName('input')[0];
+        EventHander.addListener(avatarUploader, 'change', () => { EventHander.uploadImg(contact.id, avatarUploader); });
 
         let cardActionComponents = div.getElementsByClassName('card__action')[0];
         EventHander.addListener(cardActionComponents.children[0], 'click', () => { EventHander.triggerEdit(contact.id, div); });
@@ -67,10 +76,14 @@ export default class Tree {
         });
     }
 
-    static createEmptyCard (id, superiorId) {
+    static createEmptyCard (rootId, peer = false) {
         let contact = {};
-        contact.id = id;
-        contact.superiorId = superiorId;
+        let rootContact = DataLoader.loadFromLocalStorage(rootId);
+
+        contact.id = DataLoader.getNextId();
+        peer ? contact.superiorId = rootContact.superiorId : contact.superiorId = rootId;
+
+        DataLoader.saveToLocalStorage(contact);
         Tree.addElement(contact);
     }
 }

@@ -40,19 +40,46 @@ export default class EventHandler {
         Element.toggleCollapseExpand(CardId, element);
     }
 
-    static triggerEdit (CardID, element) {
+    static triggerEdit (CardId, element) {
         Element.toggleEditDetail(element, true);
     }
 
-    static triggerAddPeer (CardID, element) {
-        Tree.createEmptyCard(CardID);
+    static triggerAddPeer (CardId, element) {
+        Tree.createEmptyCard(CardId, true);
     }
 
-    static triggerAddChild (CardID, element) {
-        console.log('Clicked add child in card: ' + CardID);
+    static triggerAddChild (CardId, element) {
+        Tree.createEmptyCard(CardId);
     }
 
-    static triggerDelete (CardID, element) {
-        Tree.deleteElement(CardID);
+    static triggerDelete (CardId, element) {
+        Tree.deleteElement(CardId);
+    }
+
+    static dragCard (CardId, element, event) {
+        Element.dragCard(CardId, event);
+    }
+
+    static dragoverCard (CardId, element, event) {
+        event.preventDefault();
+    }
+
+    static dropCard (CardId, element, event) {
+        event.preventDefault();
+        Element.dropCard(CardId, event);
+    }
+
+    static uploadImg (CardId, element) {
+        let file = document.getElementById(CardId + '-avatar-uploader').files[0];
+
+        // eslint-disable-next-line no-undef
+        let reader = new FileReader();
+        reader.onloadend = function () {
+            document.getElementById(CardId + '-avatar-img').setAttribute('src', reader.result);
+        };
+        if (file) {
+            reader.readAsDataURL(file);
+            console.log(file);
+        }
     }
 }

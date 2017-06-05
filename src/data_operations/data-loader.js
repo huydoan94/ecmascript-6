@@ -35,7 +35,9 @@ export default class DataLoader {
             });
         }
 
-        return DataLoader.sortData(datas);
+        datas = DataLoader.sortData(datas);
+        console.log(datas);
+        return datas;
     }
 
     static saveToLocalStorage (datas) {
@@ -59,14 +61,35 @@ export default class DataLoader {
     }
 
     static sortData (datas) {
-        datas.sort((a, b) => {
-            if (!a.hasOwnProperty('superiorId') || a.id === b.superiorId) {
-                return -1;
-            } else {
-                return 1;
+        // datas.sort((a, b) => {
+        //     if (!a.hasOwnProperty('superiorId') || !b.hasOwnProperty('superiorId') || a.id === b.superiorId) {
+        //         return -1;
+        //     } else if (a.superiorId === b.id) {
+        //         return 1;
+        //     } else {
+        //         return 0;
+        //     }
+        // }); wtf, this sorting thing work terrible
+        for (let i = 0; i < datas.length; i++) {
+            for (let j = i; j < datas.length; j++) {
+                if (!datas[j].hasOwnProperty('superiorId') || datas[j].id === datas[i].superiorId) {
+                    let temp = datas[i];
+                    datas[i] = datas[j];
+                    datas[j] = temp;
+                }
             }
-        });
+        }
 
         return datas;
     }
+
+    static getNextId () {
+        let nextId = -1;
+        for (var key in localStorage) {
+            nextId < key ? nextId = parseInt(key, 10) : 0;
+        }
+
+        return nextId + 1;
+    }
+
 }

@@ -21,6 +21,23 @@ export default class Element {
         }
     }
 
+    static dragCard (CardId, event) {
+        event.dataTransfer.setData('CardMoving', CardId);
+    }
+
+    static dropCard (CardId, event) {
+        let childElementId = parseInt(event.dataTransfer.getData('CardMoving'), 10);
+        let childElementCard = document.getElementById(childElementId + '__head');
+        (childElementCard.parentElement).removeChild(childElementCard);
+
+        let childElement = DataLoader.loadFromLocalStorage(childElementId);
+        childElement.superiorId = CardId;
+        DataLoader.saveToLocalStorage(childElement);
+
+        let allChildElements = DataLoader.loadManyFromLocalStorage(childElementId, true);
+        Tree.addManyElements(allChildElements);
+    }
+
     static toggleActionPanel (element, hide) {
         if (hide) {
             element.style.backgroundColor = '';
@@ -44,6 +61,7 @@ export default class Element {
     }
 
     static toggleEditDetail (element, editable) {
+        let cardId = parseInt(element.getAttribute('id'), 10);
         let detailPanel = element.getElementsByClassName('card__detail')[0];
         let detailPanelComponents = detailPanel.children;
 
@@ -55,6 +73,9 @@ export default class Element {
 
             let avatarHolder = element.getElementsByClassName('card__avatar')[0];
             avatarHolder.style.border = '2px dashed #091f5c';
+
+            let avatarUploader = document.getElementById(cardId + '-avatar-uploader');
+            avatarUploader.removeAttribute('disabled');
         } else {
             let datas = [];
             for (let i = 0; i < detailPanelComponents.length - 1; i++) {
@@ -62,27 +83,49 @@ export default class Element {
                 detailPanelComponents[i].setAttribute('contenteditable', 'false');
                 detailPanelComponents[i].style.borderBottom = 'none';
             }
+            datas.push(element.getElementsByTagName('img')[0].getAttribute('src'));
 
             let avatarHolder = element.getElementsByClassName('card__avatar')[0];
             avatarHolder.style.border = 'none';
 
-            Element.editDetail(element.getAttribute('id'), datas);
+            let avatarUploader = document.getElementById(cardId + '-avatar-uploader');
+            avatarUploader.setAttribute('disabled', 'true');
+
+            Element.editDetail(cardId, datas);
         }
     }
 
-    static editDetail (id, datas) {
+    static editDetail (CardId, datas) {
         let firstname = (datas[0].split(' '))[0].trim();
         let lastname = (datas[0].split(' '))[1].trim();
         let department = datas[1].trim();
         let employeeId = datas[2].trim();
+        let avatar = datas[3];
 
         let update = false;
-        let originData = DataLoader.loadFromLocalStorage(id);
+        let originData = DataLoader.loadFromLocalStorage(CardId);
 
-        if (originData.firstName !== firstname) { originData.firstName = firstname; update = true; }
-        if (originData.lastName !== lastname) { originData.lastName = lastname; update = true; }
-        if (originData.department !== department) { originData.department = department; update = true; }
-        if (originData.employeeId !== employeeId) { originData.employeeId = employeeId; update = true; }
+        if (originData.firstName !== firstname) {
+            originData.firstName = firstname;
+            update = true;
+        }
+        if (originData.lastName !== lastname) {
+            originData.lastName = lastname;
+            update = true;
+        }
+        if (originData.department !== department) {
+            originData.department = department;
+            update = true;
+        }
+        if (originData.employeeId !== employeeId) {
+            originData.employeeId = employeeId;
+            update = true;
+        }
+
+        if (originData.avatar !== avatar) {
+            originData.avatar = avatar;
+            update = true;
+        }
 
         if (update) {
             DataLoader.saveToLocalStorage(originData);

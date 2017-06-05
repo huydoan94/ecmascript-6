@@ -14,7 +14,10 @@ export default class Card {
     getCard () {
         return `
                <div class="card__avatar">
-                   <img class="card__avatar__img" src="images/${this.avatar}">
+                   <label for="${this.id}-avatar-uploader">
+                        <img class="card__avatar__img" id="${this.id}-avatar-img" src="${this.avatar}">
+                   </label>                
+                   <input id="${this.id}-avatar-uploader" type="file" disabled="true"/>
                </div>
                <div class="card__detail">
                    <h1 class="card__name">${this.firstName + ' ' + this.lastName}</h1>
