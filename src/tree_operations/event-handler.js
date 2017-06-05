@@ -53,7 +53,6 @@ export default class EventHandler {
     }
 
     static triggerDelete (CardID, element) {
-        Tree.deleteElement(CardID)
-        document.getElementById(CardID + '__head');
+        Tree.deleteElement(CardID);
     }
 }

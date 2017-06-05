@@ -11,33 +11,51 @@ export default class DataLoader {
         }
     }
 
-    static saveToLocalStorage (datas) {
-        datas.forEach((data) => {
-            localStorage.setItem(data.id, JSON.stringify(data));
-        });
+    static loadFromLocalStorage (rootId) {
+        return JSON.parse(localStorage.getItem(rootId));
     }
 
-    static loadFromLocalStorage (rootID = undefined, first = false) {
+    static loadManyFromLocalStorage (rootId = undefined, first = false) {
         let datas = [];
-        if (rootID === undefined) {
+        if (rootId === undefined) {
             for (let key in localStorage) {
                 if (localStorage.hasOwnProperty(key) && !isNaN(key)) {
                     datas.push(JSON.parse(localStorage.getItem(key)));
                 }
             }
         } else {
-            let allDatas = DataLoader.loadFromLocalStorage();
+            let allDatas = DataLoader.loadManyFromLocalStorage();
             allDatas.forEach((contact) => {
-                if (first && contact.id === rootID) { datas.push(contact); }
-                if (contact.superiorId === rootID) {
+                if (first && contact.id === rootId) { datas.push(contact); }
+                if (contact.superiorId === rootId) {
                     datas.push(contact);
-                    let subResults = DataLoader.loadFromLocalStorage(contact.id);
+                    let subResults = DataLoader.loadManyFromLocalStorage(contact.id);
                     if (subResults.length !== 0) { datas = datas.concat(subResults); }
                 }
             });
         }
 
         return DataLoader.sortData(datas);
+    }
+
+    static saveToLocalStorage (datas) {
+        if (datas.constructor === Array) {
+            datas.forEach((data) => {
+                localStorage.setItem(data.id, JSON.stringify(data));
+            });
+        } else {
+            localStorage.setItem(datas.id, JSON.stringify(datas));
+        }
+    }
+
+    static deleteFromLocalStorage (datas) {
+        if (datas.constructor === Array) {
+            datas.forEach((data) => {
+                localStorage.removeItem(data.id);
+            });
+        } else {
+            localStorage.removeItem(datas.id);
+        }
     }
 
     static sortData (datas) {

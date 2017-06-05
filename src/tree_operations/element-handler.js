@@ -8,7 +8,7 @@ export default class Element {
     }
 
     static cardDoubleClick (CardId, element) {
-        let contacts = DataLoader.loadFromLocalStorage(CardId, true);
+        let contacts = DataLoader.loadManyFromLocalStorage(CardId, true);
         document.getElementById('tree').innerHTML = '';
         Tree.addManyElements(contacts);
     }
@@ -77,8 +77,7 @@ export default class Element {
         let employeeId = datas[2].trim();
 
         let update = false;
-        // eslint-disable-next-line no-undef
-        let originData = JSON.parse(localStorage.getItem(id));
+        let originData = DataLoader.loadFromLocalStorage(id);
 
         if (originData.firstName !== firstname) { originData.firstName = firstname; update = true; }
         if (originData.lastName !== lastname) { originData.lastName = lastname; update = true; }
@@ -86,8 +85,7 @@ export default class Element {
         if (originData.employeeId !== employeeId) { originData.employeeId = employeeId; update = true; }
 
         if (update) {
-            // eslint-disable-next-line no-undef
-            localStorage.setItem(id, JSON.stringify(originData));
+            DataLoader.saveToLocalStorage(originData);
         }
     }
 

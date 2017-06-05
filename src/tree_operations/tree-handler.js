@@ -15,7 +15,10 @@ export default class Tree {
         (!contact.hasOwnProperty('superiorId') || index === 0) ? parentElement = document.getElementById('tree')
                                                                : parentElement = document.getElementById(contact.superiorId + '__tail');
 
-        parentElement.style.display === 'none' ? parentElement.style.display = 'block' : 0;
+        if (parentElement.style.display === 'none') {
+            parentElement.style.display = 'block';
+            (document.getElementById(contact.superiorId + '__icon')).setAttribute('src', 'images/icon/minus-icon.png');
+        }
 
         let aCard = new Card(contact);
 
@@ -30,7 +33,7 @@ export default class Tree {
         let icon = document.createElement('img');
         icon.setAttribute('id', contact.id + '__icon');
         icon.setAttribute('class', 'card__expand__collapse');
-        icon.setAttribute('src', 'images/icon/minus-icon.png');
+        icon.setAttribute('src', 'images/icon/plus-icon.png');
 
         let ul = document.createElement('ul');
         ul.setAttribute('id', contact.id + '__tail');
@@ -40,22 +43,27 @@ export default class Tree {
         EventHander.addListener(div, 'dblclick', () => { EventHander.clickCard(contact.id, div, true); });
         EventHander.addListener(icon, 'click', () => { EventHander.triggerExpandCollapse(contact.id, icon); });
 
-        parentElement.append(li);
-        li.appendChild(div);
-        li.appendChild(icon);
-        li.appendChild(ul);
-
         let cardActionComponents = div.getElementsByClassName('card__action')[0];
         EventHander.addListener(cardActionComponents.children[0], 'click', () => { EventHander.triggerEdit(contact.id, div); });
         EventHander.addListener(cardActionComponents.children[1], 'click', () => { EventHander.triggerAddPeer(contact.id, div); });
         EventHander.addListener(cardActionComponents.children[2], 'click', () => { EventHander.triggerAddChild(contact.id, div); });
         EventHander.addListener(cardActionComponents.children[3], 'click', () => { EventHander.triggerDelete(contact.id, div); });
+
+        parentElement.append(li);
+        li.appendChild(div);
+        li.appendChild(icon);
+        li.appendChild(ul);
     }
 
     static deleteElement (rootId) {
-        let elementWithChild = DataLoader.loadFromLocalStorage(rootId, true);
+        let card = document.getElementById(rootId + '__head');
+        let parentCard = card.parentElement;
+        let elementWithChild = DataLoader.loadManyFromLocalStorage(rootId, true);
+
+        parentCard.removeChild(card);
+
         elementWithChild.forEach((contact) => {
-            localStorage.removeItem(contact.id);
+            DataLoader.deleteFromLocalStorage(contact);
         });
     }
 

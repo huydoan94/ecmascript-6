@@ -3,6 +3,8 @@
 import Tree from './tree_operations/tree-handler';
 import DataLoader from './data_operations/data-loader';
 
-let contacts = DataLoader.loadFromLocalStorage();
+// eslint-disable-next-line no-new
+new DataLoader();
+let contacts = DataLoader.loadManyFromLocalStorage();
 
 Tree.addManyElements(contacts);
