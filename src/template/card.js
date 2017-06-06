@@ -10,7 +10,11 @@ export default class Card {
         this.id = contact.id;
 
         let avatar = contact.avatar;
-        this.avatar = avatar.includes('data:image/png;base64') ? avatar : ('images/' + avatar);
+        if (avatar !== undefined && avatar.includes('data:image/png;base64')) {
+            this.avatar = avatar;
+        } else {
+            this.avatar = 'images/' + avatar;
+        }
     }
 
     getCard () {

@@ -125,6 +125,10 @@ export default class Element {
             update = true;
         }
 
+        let headerIndex = avatar.search('images/');
+        if (headerIndex !== -1) {
+            avatar = avatar.substring(('images/').length);
+        }
         if (originData.avatar !== avatar) {
             originData.avatar = avatar;
             update = true;
