@@ -2,27 +2,5 @@
 body {
     padding: 0;
     margin: 0;
-}
-
-.breadscrum-container {
-    display: block;
-    height: 5vh;
-    width: 100%;
-}
-
-.breadscrum {
-    display: block;
-    height: 100%;
-    width: 100%;
-    vertical-align: middle;
-    background-color: #f4f4f4;
-}
-
-.tree-container {
-    display: block;
-    height: 95vh;
-    min-width: 100%;
-    overflow: auto;
-    padding: 0;
-    margin: 0;
+    font-family: "Arial", Arial, serif;
 }

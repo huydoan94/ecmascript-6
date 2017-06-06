@@ -82,4 +82,8 @@ export default class EventHandler {
             console.log(file);
         }
     }
+
+    static clickPath (Id, element) {
+        Element.cardDoubleClick(Id, element);
+    }
 }

@@ -15,28 +15,30 @@ export default class DataLoader {
         return JSON.parse(localStorage.getItem(rootId));
     }
 
-    static loadManyFromLocalStorage (rootId = undefined, first = false) {
+    static loadManyFromLocalStorage (rootId = undefined, first = false, initData = []) {
         let datas = [];
-        if (rootId === undefined) {
+        if (initData.length === 0) {
             for (let key in localStorage) {
                 if (localStorage.hasOwnProperty(key) && !isNaN(key)) {
-                    datas.push(JSON.parse(localStorage.getItem(key)));
+                    initData.push(JSON.parse(localStorage.getItem(key)));
                 }
             }
-        } else {
-            let allDatas = DataLoader.loadManyFromLocalStorage();
-            allDatas.forEach((contact) => {
-                if (first && contact.id === rootId) { datas.push(contact); }
-                if (contact.superiorId === rootId) {
-                    datas.push(contact);
-                    let subResults = DataLoader.loadManyFromLocalStorage(contact.id);
-                    if (subResults.length !== 0) { datas = datas.concat(subResults); }
-                }
-            });
         }
 
-        datas = DataLoader.sortData(datas);
-        console.log(datas);
+        initData.forEach((contact) => {
+            if (first && (contact.id === rootId || (!contact.hasOwnProperty('superiorId') && rootId === undefined))) {
+                datas.push(contact);
+            }
+        });
+
+        initData.forEach((contact) => {
+            if (contact.superiorId === rootId) {
+                datas.push(contact);
+                let subResults = DataLoader.loadManyFromLocalStorage(contact.id, false, initData);
+                if (subResults.length !== 0) { datas = datas.concat(subResults); }
+            }
+        });
+
         return datas;
     }
 
@@ -60,29 +62,6 @@ export default class DataLoader {
         }
     }
 
-    static sortData (datas) {
-        // datas.sort((a, b) => {
-        //     if (!a.hasOwnProperty('superiorId') || !b.hasOwnProperty('superiorId') || a.id === b.superiorId) {
-        //         return -1;
-        //     } else if (a.superiorId === b.id) {
-        //         return 1;
-        //     } else {
-        //         return 0;
-        //     }
-        // }); wtf, this sorting thing work terrible
-        for (let i = 0; i < datas.length; i++) {
-            for (let j = i; j < datas.length; j++) {
-                if (!datas[j].hasOwnProperty('superiorId') || datas[j].id === datas[i].superiorId) {
-                    let temp = datas[i];
-                    datas[i] = datas[j];
-                    datas[j] = temp;
-                }
-            }
-        }
-
-        return datas;
-    }
-
     static getNextId () {
         let nextId = -1;
         for (var key in localStorage) {
@@ -91,5 +70,4 @@ export default class DataLoader {
 
         return nextId + 1;
     }
-
 }

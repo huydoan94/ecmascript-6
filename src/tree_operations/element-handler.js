@@ -11,6 +11,9 @@ export default class Element {
         let contacts = DataLoader.loadManyFromLocalStorage(CardId, true);
         document.getElementById('tree').innerHTML = '';
         Tree.addManyElements(contacts);
+
+        document.getElementById('breadscrum').innerHTML = '';
+        Tree.getBreadScrum(CardId, true);
     }
 
     static checkCurrentTarget (currentTarget, element) {

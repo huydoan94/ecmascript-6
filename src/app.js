@@ -8,3 +8,4 @@ new DataLoader();
 let contacts = DataLoader.loadManyFromLocalStorage();
 
 Tree.addManyElements(contacts);
+Tree.getBreadScrum(contacts[0].id, true);

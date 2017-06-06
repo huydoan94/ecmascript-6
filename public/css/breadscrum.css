@@ -1,0 +1,33 @@
+.breadscrum-container {
+    display: block;
+    height: 5vh;
+    width: 100%;
+    background-color: #f4f4f4;
+    padding: 0.6em 0;
+}
+
+.breadscrum-container img {
+    height: 5vh;
+}
+
+.breadscrum {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.breadscrum * {
+    display: inline-block;
+    padding: 0 0.4em;
+}
+
+.breadscrum a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #42ccff;
+}
+
+.breadscrum p {
+    text-decoration: none;
+    font-weight: bold;
+}

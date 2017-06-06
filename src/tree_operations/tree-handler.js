@@ -86,4 +86,28 @@ export default class Tree {
         DataLoader.saveToLocalStorage(contact);
         Tree.addElement(contact);
     }
+
+    static getBreadScrum (childId, first = false) {
+        let contact = DataLoader.loadFromLocalStorage(childId);
+
+        let a;
+        if (!first) {
+            a = document.createElement('a');
+            a.setAttribute('href', '#');
+            EventHander.addListener(a, 'click', () => { EventHander.clickPath(childId, a); });
+        } else {
+            a = document.createElement('p');
+        }
+        a.setAttribute('id', childId + '__breadscrum');
+        a.innerHTML = contact.firstName + ' ' + contact.lastName;
+
+        let p = document.createElement('p');
+        p.innerHTML = '/';
+
+        let breadscrum = document.getElementById('breadscrum');
+        breadscrum.insertBefore(a, breadscrum.firstChild);
+        breadscrum.insertBefore(p, breadscrum.firstChild);
+
+        contact.hasOwnProperty('superiorId') ? Tree.getBreadScrum(contact.superiorId) : 0;
+    }
 }

@@ -5,10 +5,12 @@ export default class Card {
         this.lastName = contact.lastName;
         this.title = contact.title;
         this.department = contact.department;
-        this.avatar = contact.avatar;
         this.employeeId = contact.employeeId;
         this.superiorId = contact.superiorId;
         this.id = contact.id;
+
+        let avatar = contact.avatar;
+        this.avatar = avatar.includes('data:image/png;base64') ? avatar : ('images/' + avatar);
     }
 
     getCard () {
