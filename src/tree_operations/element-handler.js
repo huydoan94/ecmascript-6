@@ -30,6 +30,10 @@ export default class Element {
 
     static dropCard (CardId, event) {
         let childElementId = parseInt(event.dataTransfer.getData('CardMoving'), 10);
+        if (childElementId === CardId) {
+            return;
+        }
+
         let childElementCard = document.getElementById(childElementId + '__head');
         (childElementCard.parentElement).removeChild(childElementCard);
 
