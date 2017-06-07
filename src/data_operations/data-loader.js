@@ -16,7 +16,6 @@ export default class DataLoader {
     }
 
     static loadManyFromLocalStorage (rootId = undefined, first = false, initData = []) {
-        let datas = [];
         if (initData.length === 0) {
             for (let key in localStorage) {
                 if (localStorage.hasOwnProperty(key) && !isNaN(key)) {
@@ -25,6 +24,7 @@ export default class DataLoader {
             }
         }
 
+        let datas = [];
         initData.forEach((contact) => {
             if (first && (contact.id === rootId || (!contact.hasOwnProperty('superiorId') && rootId === undefined))) {
                 datas.push(contact);
@@ -64,7 +64,7 @@ export default class DataLoader {
 
     static getNextId () {
         let nextId = -1;
-        for (var key in localStorage) {
+        for (let key in localStorage) {
             nextId < key ? nextId = parseInt(key, 10) : 0;
         }
 

@@ -4,19 +4,14 @@
     padding: 0;
 }
 
-.tree-container {
+.tree {
     display: block;
     height: 95vh;
     min-width: 100%;
-    overflow: auto;
-    padding: 0;
+    padding: 5em 0 0 0;
     margin: 0;
-}
-
-.tree {
-    padding-top: 1em;
-    margin: 0 auto;
-    min-width: 1000em;
+    z-index: -9999;
+    white-space: nowrap;
 }
 
 .tree ul {

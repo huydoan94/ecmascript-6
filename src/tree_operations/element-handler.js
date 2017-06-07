@@ -3,11 +3,7 @@ import Tree from './tree-handler';
 
 export default class Element {
 
-    static cardSingleClick (CardId, element) {
-        Element.toggleActionPanel(element, false);
-    }
-
-    static cardDoubleClick (CardId, element) {
+    static changeRootCard (CardId, element) {
         let contacts = DataLoader.loadManyFromLocalStorage(CardId, true);
         document.getElementById('tree').innerHTML = '';
         Tree.addManyElements(contacts);

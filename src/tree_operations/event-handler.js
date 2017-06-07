@@ -21,18 +21,18 @@ export default class EventHandler {
     static clickCard (CardId, element, dblClicked = false) {
         let that = element;
         setTimeout(function () {
-            var dblclick = parseInt(that.getAttribute('data-OffSC'), 10);
+            let dblclick = parseInt(that.getAttribute('data-OffSC'), 10);
 
             if (dblclick > 0) {
                 that.setAttribute('data-OffSC', (dblclick - 1).toString());
             } else {
-                Element.cardSingleClick(CardId, element);
+                Element.toggleActionPanel(element, false);
             }
         }, 300);
 
         if (dblClicked) {
             element.setAttribute('data-OffSC', '3');
-            Element.cardDoubleClick(CardId, element);
+            Element.changeRootCard(CardId, element);
         }
     }
 
@@ -84,6 +84,6 @@ export default class EventHandler {
     }
 
     static clickPath (Id, element) {
-        Element.cardDoubleClick(Id, element);
+        Element.changeRootCard(Id, element);
     }
 }
