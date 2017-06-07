@@ -57,7 +57,7 @@ export default class EventHandler {
     }
 
     static dragCard (CardId, element, event) {
-        Element.dragCard(CardId, event);
+        Element.transferCurrentTarget(CardId, event);
     }
 
     static dragoverCard (CardId, element, event) {
@@ -66,7 +66,7 @@ export default class EventHandler {
 
     static dropCard (CardId, element, event) {
         event.preventDefault();
-        Element.dropCard(CardId, event);
+        Element.changeSuperiorId(CardId, event);
     }
 
     static uploadImg (CardId, element) {

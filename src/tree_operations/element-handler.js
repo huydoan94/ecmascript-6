@@ -20,11 +20,11 @@ export default class Element {
         }
     }
 
-    static dragCard (CardId, event) {
+    static transferCurrentTarget (CardId, event) {
         event.dataTransfer.setData('CardMoving', CardId);
     }
 
-    static dropCard (CardId, event) {
+    static changeSuperiorId (CardId, event) {
         let childElementId = parseInt(event.dataTransfer.getData('CardMoving'), 10);
         if (childElementId === CardId) {
             return;
