@@ -1,5 +1,5 @@
 import Card from './../template/card';
-import EventHander from './event-handler';
+import EventHandler from './event-handler';
 import DataLoader from '../data_operations/data-loader';
 
 export default class Tree {
@@ -41,22 +41,22 @@ export default class Tree {
         icon.setAttribute('class', 'card__expand__collapse');
         icon.setAttribute('src', 'images/icon/plus-icon.png');
 
-        EventHander.addListener(div, 'click', () => { EventHander.clickCard(contact.id, div); });
-        EventHander.addListener(div, 'dblclick', () => { EventHander.clickCard(contact.id, div, true); });
-        EventHander.addListener(div, 'dragstart', (event) => { EventHander.dragCard(contact.id, div, event); });
-        EventHander.addListener(div, 'dragover', (event) => { EventHander.dragoverCard(contact.id, div, event); });
-        EventHander.addListener(div, 'drop', (event) => { EventHander.dropCard(contact.id, div, event); });
+        EventHandler.addListener(div, 'click', () => { EventHandler.clickCard(contact.id, div); });
+        EventHandler.addListener(div, 'dblclick', () => { EventHandler.clickCard(contact.id, div, true); });
+        EventHandler.addListener(div, 'dragstart', (event) => { EventHandler.dragCard(contact.id, div, event); });
+        EventHandler.addListener(div, 'dragover', (event) => { EventHandler.dragoverCard(contact.id, div, event); });
+        EventHandler.addListener(div, 'drop', (event) => { EventHandler.dropCard(contact.id, div, event); });
 
-        EventHander.addListener(icon, 'click', () => { EventHander.triggerExpandCollapse(contact.id, icon); });
+        EventHandler.addListener(icon, 'click', () => { EventHandler.triggerExpandCollapse(contact.id, icon); });
 
         let avatarUploader = div.getElementsByTagName('input')[0];
-        EventHander.addListener(avatarUploader, 'change', () => { EventHander.uploadImg(contact.id, avatarUploader); });
+        EventHandler.addListener(avatarUploader, 'change', () => { EventHandler.uploadImg(contact.id, avatarUploader); });
 
         let cardActionComponents = div.getElementsByClassName('card__action')[0];
-        EventHander.addListener(cardActionComponents.children[0], 'click', () => { EventHander.triggerEdit(contact.id, div); });
-        EventHander.addListener(cardActionComponents.children[1], 'click', () => { EventHander.triggerAddPeer(contact.id, div); });
-        EventHander.addListener(cardActionComponents.children[2], 'click', () => { EventHander.triggerAddChild(contact.id, div); });
-        EventHander.addListener(cardActionComponents.children[3], 'click', () => { EventHander.triggerDelete(contact.id, div); });
+        EventHandler.addListener(cardActionComponents.children[0], 'click', () => { EventHandler.triggerEdit(contact.id, div); });
+        EventHandler.addListener(cardActionComponents.children[1], 'click', () => { EventHandler.triggerAddPeer(contact.id, div); });
+        EventHandler.addListener(cardActionComponents.children[2], 'click', () => { EventHandler.triggerAddChild(contact.id, div); });
+        EventHandler.addListener(cardActionComponents.children[3], 'click', () => { EventHandler.triggerDelete(contact.id, div); });
 
         parentElement.append(li);
         li.appendChild(div);
@@ -94,7 +94,7 @@ export default class Tree {
         if (!first) {
             a = document.createElement('a');
             a.setAttribute('href', '#');
-            EventHander.addListener(a, 'click', () => { EventHander.clickPath(childId, a); });
+            EventHandler.addListener(a, 'click', () => { EventHandler.clickPath(childId, a); });
         } else {
             a = document.createElement('p');
         }

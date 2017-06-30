@@ -20,7 +20,7 @@ export default class EventHandler {
 
     static clickCard (CardId, element, dblClicked = false) {
         let that = element;
-        setTimeout(function () {
+        setTimeout(() => {
             let dblclick = parseInt(that.getAttribute('data-OffSC'), 10);
 
             if (dblclick > 0) {
