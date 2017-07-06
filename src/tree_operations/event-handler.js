@@ -79,7 +79,6 @@ export default class EventHandler {
         };
         if (file) {
             reader.readAsDataURL(file);
-            console.log(file);
         }
     }
 
