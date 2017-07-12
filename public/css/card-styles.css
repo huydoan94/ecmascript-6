@@ -72,11 +72,10 @@
 .card__expand__collapse {
     display: block;
     position: absolute;
-    width: 1em;
+    width: 15px;
     height: auto;
     left: 50%;
-    margin-left: -8px;
-    padding-bottom: -100px;
+    margin-left: -8.2px;
     z-index: 9999;
 }
 

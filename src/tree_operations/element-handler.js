@@ -24,21 +24,30 @@ export default class Element {
         event.dataTransfer.setData('CardMoving', CardId);
     }
 
-    static changeSuperiorId (CardId, event) {
-        let childElementId = parseInt(event.dataTransfer.getData('CardMoving'), 10);
-        if (childElementId === CardId) {
+    static changeSuperiorId (destCardId, event) {
+        let movingElementId = parseInt(event.dataTransfer.getData('CardMoving'), 10);
+        if (movingElementId === destCardId) {
             return;
         }
 
-        let childElementCard = document.getElementById(childElementId + '__head');
-        (childElementCard.parentElement).removeChild(childElementCard);
+        let movingElementCard = document.getElementById(movingElementId + '__head');
+        let movingElementCardChildren = Array.prototype.slice.call(movingElementCard.getElementsByTagName('li'));
+        let subordinanceCards = movingElementCardChildren.filter((child) => {
+            let childId = parseInt((child.id).substring(0, (child.id).indexOf('__head')), 10);
+            return destCardId === childId;
+        });
+        if (subordinanceCards.length > 0) {
+            return;
+        }
 
-        let childElement = DataLoader.loadFromLocalStorage(childElementId);
-        childElement.superiorId = CardId;
-        DataLoader.saveToLocalStorage(childElement);
+        (movingElementCard.parentElement).removeChild(movingElementCard);
 
-        let allChildElements = DataLoader.loadManyFromLocalStorage(childElementId, true);
-        Tree.addManyElements(allChildElements);
+        let childElements = DataLoader.loadFromLocalStorage(movingElementId);
+        childElements.superiorId = destCardId;
+        DataLoader.saveToLocalStorage(childElements);
+
+        let itsChildElements = DataLoader.loadManyFromLocalStorage(movingElementId, true);
+        Tree.addManyElements(itsChildElements);
     }
 
     static toggleActionPanel (element, hide) {
@@ -140,18 +149,18 @@ export default class Element {
     }
 
     static toggleCollapseExpand (CardId, element) {
-        let childElements = document.getElementById(CardId + '__tail');
+        let childElementss = document.getElementById(CardId + '__tail');
         let icon = element;
 
-        if (childElements.innerHTML.trim() === '') {
+        if (childElementss.innerHTML.trim() === '') {
             return;
         }
 
-        if (childElements.style.display === 'block') {
-            childElements.style.display = 'none';
+        if (childElementss.style.display === 'block') {
+            childElementss.style.display = 'none';
             icon.setAttribute('src', 'images/icon/plus-icon.png');
         } else {
-            childElements.style.display = 'block';
+            childElementss.style.display = 'block';
             icon.setAttribute('src', 'images/icon/minus-icon.png');
         }
     }

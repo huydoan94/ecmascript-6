@@ -33,9 +33,9 @@ export default class Card {
                </div>
                <div class="card__action">
                    <img id="card__edit" src="images/icon/edit-icon.png">
-                   <img id="card__add-right" src="images/icon/add-right-icon.png">
+                   ${this.superiorId ? `<img id="card__add-right" src="images/icon/add-right-icon.png">` : `<img id="card__add-right" style="display: 'none'">`}
                    <img id="card__add-bottom" src="images/icon/add-bottom-icon.png">
-                   <img id="card__delete" src="images/icon/delete-icon.png">
+                   ${this.superiorId ? `<img id="card__delete" src="images/icon/delete-icon.png">` : `<img id="card__delete" style="display: 'none'">`}
                </div>
                `;
     }
